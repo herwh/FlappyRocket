@@ -4,12 +4,16 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private float _moveForce;
     [SerializeField] private float _rotationForce;
-
+    
+    [SerializeField] private AudioClip _flySound;
+    
     private Rigidbody _rb;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -23,6 +27,16 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             MoveUp();
+
+            if (!_audioSource.isPlaying)
+            {
+                _audioSource.PlayOneShot(_flySound);
+            }
+        }
+
+        else
+        {
+            _audioSource.Stop();
         }
     }
 
