@@ -4,8 +4,8 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private float _moveForce;
     [SerializeField] private float _rotationForce;
-    
     [SerializeField] private AudioClip _flySound;
+    [SerializeField] private ParticleSystem _boosterTrail;
     
     private Rigidbody _rb;
     private AudioSource _audioSource;
@@ -27,28 +27,35 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             MoveUp();
+            
 
-            if (!_audioSource.isPlaying)
+            if (!_audioSource.isPlaying) //todo refactor (check rocketIsFlying)
             {
                 _audioSource.PlayOneShot(_flySound);
             }
+
+            if (!_boosterTrail.isPlaying)
+            {
+                _boosterTrail.Play();
+            }
         }
 
-        else
+        else //todo refactor (check rocketIsFlying)
         {
             _audioSource.Stop();
+            _boosterTrail.Stop();
         }
     }
 
     private void ProcessRotation()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             RotateToDirection(Vector3.forward);
 
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             RotateToDirection(Vector3.back);
         }

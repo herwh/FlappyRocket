@@ -575,38 +575,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5370554862456087757, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5370554862456087757, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: simulationSpeed
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5370554862456087757, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: InitialModule.maxNumParticles
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5370554862456087757, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5370554862456087757, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: InitialModule.startSizeY.scalar
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5370554862456087757, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: InitialModule.startSizeZ.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5370554862456087757, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5370554862456087758, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.08
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
