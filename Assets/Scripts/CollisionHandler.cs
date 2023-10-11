@@ -7,16 +7,26 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] private float _reloadDelay;
     [SerializeField] private AudioClip _crashSound;
     [SerializeField] private AudioClip _successSound;
+    [SerializeField] private ParticleSystem _crashParticles;
+    [SerializeField] private ParticleSystem _successParticles;
 
     private AudioSource _audioSource;
-    
+    private bool _isTransitioning;
+
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+
+        _isTransitioning = false;
     }
-    
+
     private void OnCollisionEnter(Collision other)
     {
+        if (_isTransitioning)
+        {
+            return;
+        }
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
@@ -33,27 +43,35 @@ public class CollisionHandler : MonoBehaviour
                 break;
         }
     }
-    
+
     private void StartSuccessSequence()
     {
+        _isTransitioning = true;
+
+        _audioSource.Stop();
         _audioSource.PlayOneShot(_successSound);
-        
-        //todo add VFX upon finish
-        
+
+        _successParticles.transform.transform.parent = null;
+        _successParticles.Play();
+
         GetComponent<Movement>().enabled = false;
-        Invoke(nameof(LoadNextLevel),_levelLoadDelay);
+        Invoke(nameof(LoadNextLevel), _levelLoadDelay);
     }
-    
+
     private void StartCrashSequence()
     {
+        _isTransitioning = true;
+
+        _audioSource.Stop();
         _audioSource.PlayOneShot(_crashSound);
-        
-        //todo add VFX upon crash
-        
+
+        _crashParticles.transform.parent = null;
+        _crashParticles.Play();
+
         GetComponent<Movement>().enabled = false;
         Invoke(nameof(ReloadLevel), _reloadDelay);
     }
-    
+
     private void LoadNextLevel()
     {
         var currenSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -66,7 +84,7 @@ public class CollisionHandler : MonoBehaviour
 
         SceneManager.LoadScene(nextSceneIndex);
     }
-    
+
     private void ReloadLevel()
     {
         var currenSceneIndex = SceneManager.GetActiveScene().buildIndex;
