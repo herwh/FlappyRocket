@@ -18,32 +18,20 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        ProcessInput();
+        ProcessMove();
         ProcessRotation();
     }
 
-    private void ProcessInput()
+    private void ProcessMove()
     {
         if (Input.GetKey(KeyCode.Space))
         {
             MoveUp();
-            
-
-            if (!_audioSource.isPlaying) //todo refactor (check rocketIsFlying)
-            {
-                _audioSource.PlayOneShot(_flySound);
-            }
-
-            if (!_boosterTrail.isPlaying)
-            {
-                _boosterTrail.Play();
-            }
         }
 
-        else //todo refactor (check rocketIsFlying)
+        else
         {
-            _audioSource.Stop();
-            _boosterTrail.Stop();
+            StopMoving();
         }
     }
 
@@ -64,12 +52,30 @@ public class Movement : MonoBehaviour
     private void MoveUp()
     {
         _rb.AddRelativeForce(Vector3.up * (_moveForce * Time.deltaTime));
+
+        if (!_audioSource.isPlaying)//todo extract to SFX
+        {
+            _audioSource.PlayOneShot(_flySound);
+        }
+
+        if (!_boosterTrail.isPlaying)//todo extract to VFX
+        {
+            _boosterTrail.Play();
+        }
     }
 
     private void RotateToDirection(Vector3 direction)
     {
         _rb.freezeRotation = true;
+        
         transform.Rotate(direction * (_rotationForce * Time.deltaTime));
+        
         _rb.freezeRotation = false;
+    }
+    
+    private void StopMoving()
+    {
+        _audioSource.Stop();
+        _boosterTrail.Stop();
     }
 }

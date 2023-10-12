@@ -12,17 +12,24 @@ public class CollisionHandler : MonoBehaviour
 
     private AudioSource _audioSource;
     private bool _isTransitioning;
+    private bool _collisionDisabled;
 
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
 
         _isTransitioning = false;
+        _collisionDisabled = false;
+    }
+
+    private void Update()
+    {
+        RespondToDebugKeys();
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (_isTransitioning)
+        if (_isTransitioning || _collisionDisabled)
         {
             return;
         }
@@ -44,7 +51,7 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
-    private void StartSuccessSequence()
+    private void StartSuccessSequence() //todo extract to levelController
     {
         _isTransitioning = true;
 
@@ -58,24 +65,24 @@ public class CollisionHandler : MonoBehaviour
         Invoke(nameof(LoadNextLevel), _levelLoadDelay);
     }
 
-    private void StartCrashSequence()
+    private void StartCrashSequence() //todo extract to levelController
     {
         _isTransitioning = true;
 
-        _audioSource.Stop();
+        _audioSource.Stop(); //todo extract to SFX
         _audioSource.PlayOneShot(_crashSound);
 
-        _crashParticles.transform.parent = null;
+        _crashParticles.transform.parent = null;//todo extract to VFX
         _crashParticles.Play();
 
         GetComponent<Movement>().enabled = false;
         Invoke(nameof(ReloadLevel), _reloadDelay);
     }
 
-    private void LoadNextLevel()
+    private void LoadNextLevel() //todo extract to levelController + Cheats
     {
-        var currenSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        var nextSceneIndex = currenSceneIndex + 1;
+        var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        var nextSceneIndex = currentSceneIndex + 1;
 
         if (nextSceneIndex > SceneManager.sceneCount)
         {
@@ -85,9 +92,23 @@ public class CollisionHandler : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
     }
 
-    private void ReloadLevel()
+    private void ReloadLevel() //todo extract to levelController
     {
         var currenSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currenSceneIndex);
     }
+    
+    private void RespondToDebugKeys() //todo extract to Cheats
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _collisionDisabled = !_collisionDisabled;
+        }
+    }
+    
 }

@@ -127,7 +127,7 @@ Transform:
   - {fileID: 1700006505137987004}
   - {fileID: 3483468456428397725}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 186.394, z: 0}
 --- !u!54 &2871309560915845151
 Rigidbody:
