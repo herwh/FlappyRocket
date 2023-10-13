@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.58215094, g: 0.59237176, b: 0.5613995, a: 1}
+  m_IndirectSpecularColor: {r: 0.4150393, g: 0.4224171, b: 0.39998963, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2042,6 +2042,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlappyRocket
       objectReference: {fileID: 0}
+    - target: {fileID: 2930432827107537210, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930432827107537210, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930432827107537210, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930432827107537210, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
+      propertyPath: m_SpotAngle
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 5022359965827404949, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2086,8 +2102,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2535545906188254486, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
