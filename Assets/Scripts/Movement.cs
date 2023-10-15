@@ -1,81 +1,69 @@
+using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [SerializeField] private InputController _inputController;
     [SerializeField] private float _moveForce;
     [SerializeField] private float _rotationForce;
-    [SerializeField] private AudioClip _flySound;
-    [SerializeField] private ParticleSystem _boosterTrail;
-    
-    private Rigidbody _rb;
-    private AudioSource _audioSource;
+    [SerializeField] private Rigidbody _rb;
+
+    public event Action Moving;
+    public event Action Stop;
+
+    private bool _isMoving;
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
-        _audioSource = GetComponent<AudioSource>();
+        _inputController.MoveButtonHold += MoveUp;
+        _inputController.MoveButtonUp += StopMoving;
+        _inputController.LeftButtonHold += RotateLeft;
+        _inputController.RightButtonHold += RotateRight;
     }
 
     void FixedUpdate()
     {
-        ProcessMove();
-        ProcessRotation();
-    }
-
-    private void ProcessMove()
-    {
-        if (Input.GetKey(KeyCode.Space))
+        if (_isMoving)
         {
-            MoveUp();
-        }
-
-        else
-        {
-            StopMoving();
-        }
-    }
-
-    private void ProcessRotation()
-    {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        {
-            RotateToDirection(Vector3.forward);
-
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        {
-            RotateToDirection(Vector3.back);
+            _rb.AddRelativeForce(Vector3.up * (_moveForce * Time.deltaTime));
         }
     }
 
     private void MoveUp()
     {
-        _rb.AddRelativeForce(Vector3.up * (_moveForce * Time.deltaTime));
-
-        if (!_audioSource.isPlaying)//todo extract to SFX
-        {
-            _audioSource.PlayOneShot(_flySound);
-        }
-
-        if (!_boosterTrail.isPlaying)//todo extract to VFX
-        {
-            _boosterTrail.Play();
-        }
+        _isMoving = true;
+        if (Moving != null) Moving();
     }
 
-    private void RotateToDirection(Vector3 direction)
+    private void RotateLeft()
     {
         _rb.freezeRotation = true;
-        
-        transform.Rotate(direction * (_rotationForce * Time.deltaTime));
-        
+
+        transform.Rotate(Vector3.forward * (_rotationForce * Time.deltaTime));
+
         _rb.freezeRotation = false;
     }
-    
+
+    private void RotateRight()
+    {
+        _rb.freezeRotation = true;
+
+        transform.Rotate(Vector3.back * (_rotationForce * Time.deltaTime));
+
+        _rb.freezeRotation = false;
+    }
+
     private void StopMoving()
     {
-        _audioSource.Stop();//todo extract to SFX
-        _boosterTrail.Stop();//todo extract to VFX
+        _isMoving = false;
+        if (Stop != null) Stop();
+    }
+
+    private void OnDisable()
+    {
+        _inputController.MoveButtonHold -= MoveUp;
+        _inputController.MoveButtonUp -= StopMoving;
+        _inputController.LeftButtonHold -= RotateLeft;
+        _inputController.RightButtonHold -= RotateRight;
     }
 }

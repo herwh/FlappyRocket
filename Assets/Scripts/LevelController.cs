@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
@@ -7,19 +6,19 @@ public class LevelController : MonoBehaviour
     [SerializeField] private CollisionHandler _collisionHandler;
     [SerializeField] private float _levelLoadDelay;
     [SerializeField] private float _reloadDelay;
-    [SerializeField] private AudioClip _crashSound;
-    [SerializeField] private AudioClip _successSound;
-    [SerializeField] private ParticleSystem _crashParticles;
-    [SerializeField] private ParticleSystem _successParticles;
+    [SerializeField] private AudioClip _crashSound;//todo extract to SFX
+    [SerializeField] private AudioClip _successSound;//todo extract to SFX
+    [SerializeField] private ParticleSystem _crashParticles;//todo extract to VFX
+    [SerializeField] private ParticleSystem _successParticles;//todo extract to VFX
 
     private bool _isTransitioning;
-    private AudioSource _audioSource;
+    private AudioSource _audioSource;//todo extract to SFX
 
     private void Start()
     {
         _collisionHandler.Collided += CollisionHandle;
         
-        _audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();//todo extract to SFX
         _isTransitioning = false;
     }
 
@@ -43,11 +42,11 @@ public class LevelController : MonoBehaviour
     {
         _isTransitioning = true;
 
-        _audioSource.Stop();
-        _audioSource.PlayOneShot(_successSound);
+        _audioSource.Stop();//todo extract to SFX
+        _audioSource.PlayOneShot(_successSound);//todo extract to SFX
 
-        _successParticles.transform.transform.parent = null;
-        _successParticles.Play();
+        _successParticles.transform.transform.parent = null;//todo extract to VFX
+        _successParticles.Play();//todo extract to VFX
 
         GetComponent<Movement>().enabled = false;
         Invoke(nameof(LoadNextLevel), _levelLoadDelay);
@@ -58,10 +57,10 @@ public class LevelController : MonoBehaviour
         _isTransitioning = true;
 
         _audioSource.Stop(); //todo extract to SFX
-        _audioSource.PlayOneShot(_crashSound);
+        _audioSource.PlayOneShot(_crashSound);//todo extract to SFX
 
         _crashParticles.transform.parent = null; //todo extract to VFX
-        _crashParticles.Play();
+        _crashParticles.Play();//todo extract to VFX
 
         GetComponent<Movement>().enabled = false;
         Invoke(nameof(ReloadLevel), _reloadDelay);
