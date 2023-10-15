@@ -75,7 +75,7 @@ public class Movement : MonoBehaviour
     
     private void StopMoving()
     {
-        _audioSource.Stop();
-        _boosterTrail.Stop();
+        _audioSource.Stop();//todo extract to SFX
+        _boosterTrail.Stop();//todo extract to VFX
     }
 }
