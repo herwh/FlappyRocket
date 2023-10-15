@@ -1,24 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
     [SerializeField] private CollisionHandler _collisionHandler;
+    [SerializeField] private InputController _inputController;
     [SerializeField] private float _levelLoadDelay;
     [SerializeField] private float _reloadDelay;
-    [SerializeField] private AudioClip _crashSound;//todo extract to SFX
-    [SerializeField] private AudioClip _successSound;//todo extract to SFX
-    [SerializeField] private ParticleSystem _crashParticles;//todo extract to VFX
-    [SerializeField] private ParticleSystem _successParticles;//todo extract to VFX
+    
+    public event Action Success;
+    public event Action Crash;
 
     private bool _isTransitioning;
-    private AudioSource _audioSource;//todo extract to SFX
 
     private void Start()
     {
         _collisionHandler.Collided += CollisionHandle;
-        
-        _audioSource = GetComponent<AudioSource>();//todo extract to SFX
+        _inputController.NextLevelButtonDown += LoadNextLevel;
+
         _isTransitioning = false;
     }
 
@@ -29,6 +29,8 @@ public class LevelController : MonoBehaviour
 
         switch (other.gameObject.tag)
         {
+            case "Friendly" :
+                break;
             case "Finish":
                 StartSuccessSequence();
                 break;
@@ -42,11 +44,7 @@ public class LevelController : MonoBehaviour
     {
         _isTransitioning = true;
 
-        _audioSource.Stop();//todo extract to SFX
-        _audioSource.PlayOneShot(_successSound);//todo extract to SFX
-
-        _successParticles.transform.transform.parent = null;//todo extract to VFX
-        _successParticles.Play();//todo extract to VFX
+        if (Success != null) Success();
 
         GetComponent<Movement>().enabled = false;
         Invoke(nameof(LoadNextLevel), _levelLoadDelay);
@@ -56,26 +54,22 @@ public class LevelController : MonoBehaviour
     {
         _isTransitioning = true;
 
-        _audioSource.Stop(); //todo extract to SFX
-        _audioSource.PlayOneShot(_crashSound);//todo extract to SFX
-
-        _crashParticles.transform.parent = null; //todo extract to VFX
-        _crashParticles.Play();//todo extract to VFX
+        if (Crash != null) Crash();
 
         GetComponent<Movement>().enabled = false;
         Invoke(nameof(ReloadLevel), _reloadDelay);
     }
 
-    private void LoadNextLevel() //todo extract to levelController + Cheats
+    private void LoadNextLevel()
     {
         var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         var nextSceneIndex = currentSceneIndex + 1;
 
-        if (nextSceneIndex > SceneManager.sceneCount)
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
         {
             nextSceneIndex = 0;
         }
-
+        
         SceneManager.LoadScene(nextSceneIndex);
     }
 
@@ -88,5 +82,6 @@ public class LevelController : MonoBehaviour
     private void OnDisable()
     {
         _collisionHandler.Collided -= CollisionHandle;
+        _inputController.NextLevelButtonDown -= LoadNextLevel;
     }
 }

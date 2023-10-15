@@ -3,13 +3,19 @@
 public class SFXController : MonoBehaviour
 {
     [SerializeField] private Movement _movement;
-    [SerializeField] private AudioClip _flySound;
+    [SerializeField] private LevelController _levelController;
     [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _flySound;
+    [SerializeField] private AudioClip _crashSound;
+    [SerializeField] private AudioClip _successSound;
+
 
     private void Start()
     {
         _movement.Moving += PlayFlySound;
-        _movement.Stop += StopFlySound;
+        _movement.Stop += StopSound;
+        _levelController.Success += PlaySuccessSound;
+        _levelController.Crash += PlayCrashSound;
     }
 
     private void PlayFlySound()
@@ -20,7 +26,19 @@ public class SFXController : MonoBehaviour
         }
     }
 
-    private void StopFlySound()
+    private void PlaySuccessSound()
+    {
+        StopSound();
+        _audioSource.PlayOneShot(_successSound);
+    }
+
+    private void PlayCrashSound()
+    {
+        StopSound();
+        _audioSource.PlayOneShot(_crashSound);
+    }
+
+    private void StopSound()
     {
         _audioSource.Stop();
     }
@@ -28,6 +46,8 @@ public class SFXController : MonoBehaviour
     private void OnDisable()
     {
         _movement.Moving -= PlayFlySound;
-        _movement.Stop -= StopFlySound;
+        _movement.Stop -= StopSound;
+        _levelController.Success -= PlaySuccessSound;
+        _levelController.Crash -= PlayCrashSound;
     }
 }

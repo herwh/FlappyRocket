@@ -7,7 +7,9 @@ public class InputController: MonoBehaviour
     public event Action MoveButtonUp;
     public event Action LeftButtonHold;
     public event Action RightButtonHold;
-        
+    public event Action NextLevelButtonDown;
+    public event Action SwitchCollisionStateButtonDown;
+
     private void Update()
     {
         RespondToDebugKeys();
@@ -41,16 +43,16 @@ public class InputController: MonoBehaviour
         }
     }
 
-    private void RespondToDebugKeys() //todo extract to Cheats
+    private void RespondToDebugKeys()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadNextLevel();
+            if (NextLevelButtonDown != null) NextLevelButtonDown();
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            _collisionDisabled = !_collisionDisabled;
+            if (SwitchCollisionStateButtonDown != null) SwitchCollisionStateButtonDown();
         }
     }
 }

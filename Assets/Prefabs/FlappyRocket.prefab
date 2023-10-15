@@ -97,6 +97,10 @@ GameObject:
   - component: {fileID: 3354114534698880599}
   - component: {fileID: 1521259834284975553}
   - component: {fileID: 8472743220938209259}
+  - component: {fileID: 4553972460065620837}
+  - component: {fileID: 7245705507291995365}
+  - component: {fileID: 312425867248577792}
+  - component: {fileID: 5089297162953844864}
   m_Layer: 0
   m_Name: FlappyRocket
   m_TagString: Untagged
@@ -126,7 +130,7 @@ Transform:
   - {fileID: 1700006505137987004}
   - {fileID: 3483468456428397725}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 186.394, z: 0}
 --- !u!54 &2871309560915845151
 Rigidbody:
@@ -286,10 +290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e0c0c4789e8aa4f9e9685e92b47a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputController: {fileID: 4553972460065620837}
   _moveForce: 1000
   _rotationForce: 100
-  _flySound: {fileID: 8300000, guid: 8183ae343900c6f4f8c5bd91f45e00a4, type: 3}
-  _boosterTrail: {fileID: 3483468456428397724}
+  _rb: {fileID: 2871309560915845151}
 --- !u!114 &8472743220938209259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,10 +306,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f070f3f10c7284e83db073438a8460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputController: {fileID: 4553972460065620837}
+--- !u!114 &4553972460065620837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912324239819545776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5afbb701dbd491aa2ee8ae240a4c7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7245705507291995365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912324239819545776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c94bc6229f4ff0a51434a422be5dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionHandler: {fileID: 8472743220938209259}
+  _inputController: {fileID: 4553972460065620837}
   _levelLoadDelay: 2
   _reloadDelay: 2
+--- !u!114 &312425867248577792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912324239819545776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd42e50d55e74ce98969f548ea0282ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movement: {fileID: 1521259834284975553}
+  _levelController: {fileID: 7245705507291995365}
+  _audioSource: {fileID: 3354114534698880599}
+  _flySound: {fileID: 8300000, guid: ff112c14e4168d142b0de25ad9c68fd1, type: 3}
   _crashSound: {fileID: 8300000, guid: 9cf6a9bd3bbe0bc488d767f058fe1823, type: 3}
   _successSound: {fileID: 8300000, guid: a4622f2839abc524fb10b7b56ad0c5f8, type: 3}
+--- !u!114 &5089297162953844864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912324239819545776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a9d79f7cc24c41896f853e8e828c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movement: {fileID: 1521259834284975553}
+  _levelController: {fileID: 7245705507291995365}
+  _flyTrail: {fileID: 3483468456428397724}
   _crashParticles: {fileID: 1700006505137987005}
   _successParticles: {fileID: 5370554862456087757}
 --- !u!1 &946671534823009507
@@ -1100,7 +1162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6930510193063315079, guid: ac1eb58333177014ca6f8c95cc1a7273, type: 3}
       propertyPath: m_Name
-      value: BoosterTrail
+      value: FlyTrail
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
