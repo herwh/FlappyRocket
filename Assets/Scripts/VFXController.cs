@@ -1,7 +1,4 @@
-﻿namespace DefaultNamespace
-{
-    public class VFXController
+﻿ public class VFXController
     {
         
     }
-}

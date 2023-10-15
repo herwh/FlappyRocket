@@ -15,10 +15,18 @@ public class Oscillator : MonoBehaviour
 
     void Update()
     {
+        Oscillate();
+    }
+
+    private void Oscillate()
+    {
+        if (_period <= Mathf.Epsilon)
+            return;
+
         var cycle = Time.time / _period;
         var sinWave = Mathf.Sin(cycle);
-        _movementFactor = (sinWave + 1f )/ 2f;
-        
+        _movementFactor = (sinWave + 1f) / 2f;
+
         var offset = _movementVector * _movementFactor;
         transform.position = _startingPosition + offset;
     }

@@ -1047,6 +1047,7 @@ GameObject:
   - component: {fileID: 1018963100}
   - component: {fileID: 1018963099}
   - component: {fileID: 1018963098}
+  - component: {fileID: 1018963102}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -1140,6 +1141,21 @@ Transform:
   m_Father: {fileID: 1807093285}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1018963102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018963097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb234802f623c6442983797f226d8fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementVector: {x: 10, y: 0, z: 0}
+  _movementFactor: 0
+  _period: 0.5
 --- !u!1 &1021213444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1248,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1132349195
 GameObject:
@@ -2042,25 +2058,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlappyRocket
       objectReference: {fileID: 0}
-    - target: {fileID: 2930432827107537210, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2930432827107537210, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2930432827107537210, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2930432827107537210, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
-      propertyPath: m_SpotAngle
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 5022359965827404949, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5022359965827404949, guid: 288416079beed3f43b1bbb33ddc3cad5, type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,7 +1,4 @@
-﻿namespace DefaultNamespace
-{
-    public class SFXController
+﻿ public class SFXController
     {
         
     }
-}

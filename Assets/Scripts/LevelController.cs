@@ -1,7 +1,4 @@
-﻿namespace DefaultNamespace
-{
-    public class LevelController
+﻿    public class LevelController
     {
         
     }
-}

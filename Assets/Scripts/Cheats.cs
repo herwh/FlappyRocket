@@ -1,7 +1,4 @@
-﻿namespace DefaultNamespace
-{
-    public class Cheats
+﻿  public class Cheats
     {
         
     }
-}
